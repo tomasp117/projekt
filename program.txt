@@ -1,0 +1,4 @@
+int x, y;
+x = !SAFas;
+y = x + 3;
+write y;
