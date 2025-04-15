@@ -1,74 +1,99 @@
 grammar MyLang;
 
-// parser rules
-
-program: statement* EOF;
-
-statement:
-	';'														# EmptyStmt
-	| type ID (',' ID)* ';'									# VarDecl
-	| expression ';'										# ExprStmt
-	| 'read' ID (',' ID)* ';'								# ReadStmt
-	| 'write' expression (',' expression)* ';'				# WriteStmt
-	| '{' statement* '}'									# BlockStmt
-	| 'if' '(' expression ')' statement ('else' statement)?	# IfStmt
-	| 'while' '(' expression ')' statement					# WhileStmt;
-
-expression:
-	<assoc = right> expression '=' expression	# AssignExpr
-	| expression '||' expression				# OrExpr
-	| expression '&&' expression				# AndExpr
-	| expression ('==' | '!=') expression		# EqExpr
-	| expression ('<' | '>') expression			# RelExpr
-	| expression ('+' | '-' | '.') expression	# AddExpr
-	| expression ('*' | '/' | '%') expression	# MulExpr
-	| '!' expression							# NotExpr
-	| '-' expression							# NegExpr
-	| '(' expression ')'						# ParensExpr
-	| literal									# LiteralExpr
-	| ID										# VarExpr;
-
-// ------------------------ Types ------------------------
-
-type: 'int' | 'float' | 'bool' | 'string';
-
-// ------------------------ Literals ------------------------
-
-literal: INT | FLOAT | STRING | BOOL;
-
-// ------------------------ Lexer Rules ------------------------
-
-BOOL: 'true' | 'false';
-
+// ------------------- Lexer Rules -------------------
 INT: [0-9]+;
 FLOAT: [0-9]+ '.' [0-9]+;
-STRING: '"' (~["\\] | '\\' .)* '"';
+BOOL: 'true' | 'false';
+STRING: '"' .*? '"';
 
-ID: [a-zA-Z] [a-zA-Z0-9]*;
+TYPE: 'int' | 'float' | 'bool' | 'string';
 
+IF: 'if';
+ELSE: 'else';
+WHILE: 'while';
+READ: 'read';
+WRITE: 'write';
+
+COMMENT: '//' ~[\r\n]* -> skip;
 WS: [ \t\r\n]+ -> skip;
 
-LINE_COMMENT: '//' ~[\r\n]* -> skip;
-
-// Operators and delimiters
+// Operators and symbols
+ASSIGN: '=';
 PLUS: '+';
 MINUS: '-';
 MUL: '*';
 DIV: '/';
 MOD: '%';
-ASSIGN: '=';
+DOT: '.';
+
+AND: '&&';
+OR: '||';
+NOT: '!';
+
 EQ: '==';
 NEQ: '!=';
 LT: '<';
 GT: '>';
-AND: '&&';
-OR: '||';
-NOT: '!';
-DOT: '.';
 
+SEMI: ';';
+COMMA: ',';
 LPAREN: '(';
 RPAREN: ')';
 LBRACE: '{';
 RBRACE: '}';
-SEMI: ';';
-COMMA: ',';
+
+ID: [a-zA-Z][a-zA-Z0-9]*;
+
+// ------------------- Parser Rules -------------------
+program: statement*;
+
+statement:
+	declaration
+	| expressionStatement
+	| readStatement
+	| writeStatement
+	| block
+	| ifStatement
+	| whileStatement
+	| SEMI;
+
+declaration: TYPE ID (COMMA ID)* SEMI;
+
+expressionStatement: expression SEMI;
+
+readStatement: READ ID (COMMA ID)* SEMI;
+
+writeStatement: WRITE expression (COMMA expression)* SEMI;
+
+block: LBRACE statement* RBRACE;
+
+ifStatement:
+	IF LPAREN expression RPAREN statement (ELSE statement)?;
+
+whileStatement: WHILE LPAREN expression RPAREN statement;
+
+expression: assignment;
+
+assignment: logic_or (ASSIGN assignment)?;
+
+logic_or: logic_and (OR logic_and)*;
+
+logic_and: equality (AND equality)*;
+
+equality: comparison ((EQ | NEQ) comparison)*;
+
+comparison: addition ((LT | GT) addition)*;
+
+addition: multiplication ((PLUS | MINUS | DOT) multiplication)*;
+
+multiplication: unary ((MUL | DIV | MOD) unary)*;
+
+unary: (NOT | MINUS) unary | primary;
+
+primary:
+	INT
+	| FLOAT
+	| BOOL
+	| STRING
+	| ID
+	| LPAREN expression RPAREN;

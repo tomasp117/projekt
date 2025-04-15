@@ -1,4 +1,4 @@
-// Generated from c:/Users/Tomáš/Documents/VSB/PJP/projekt/Expr.g4 by ANTLR 4.13.1
+// Generated from d:/VSB/PJP/projekt/Expr.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**

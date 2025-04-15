@@ -17,201 +17,165 @@ class MyLangListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MyLangParser#EmptyStmt.
-    def enterEmptyStmt(self, ctx:MyLangParser.EmptyStmtContext):
+    # Enter a parse tree produced by MyLangParser#statement.
+    def enterStatement(self, ctx:MyLangParser.StatementContext):
         pass
 
-    # Exit a parse tree produced by MyLangParser#EmptyStmt.
-    def exitEmptyStmt(self, ctx:MyLangParser.EmptyStmtContext):
-        pass
-
-
-    # Enter a parse tree produced by MyLangParser#VarDecl.
-    def enterVarDecl(self, ctx:MyLangParser.VarDeclContext):
-        pass
-
-    # Exit a parse tree produced by MyLangParser#VarDecl.
-    def exitVarDecl(self, ctx:MyLangParser.VarDeclContext):
+    # Exit a parse tree produced by MyLangParser#statement.
+    def exitStatement(self, ctx:MyLangParser.StatementContext):
         pass
 
 
-    # Enter a parse tree produced by MyLangParser#ExprStmt.
-    def enterExprStmt(self, ctx:MyLangParser.ExprStmtContext):
+    # Enter a parse tree produced by MyLangParser#declaration.
+    def enterDeclaration(self, ctx:MyLangParser.DeclarationContext):
         pass
 
-    # Exit a parse tree produced by MyLangParser#ExprStmt.
-    def exitExprStmt(self, ctx:MyLangParser.ExprStmtContext):
-        pass
-
-
-    # Enter a parse tree produced by MyLangParser#ReadStmt.
-    def enterReadStmt(self, ctx:MyLangParser.ReadStmtContext):
-        pass
-
-    # Exit a parse tree produced by MyLangParser#ReadStmt.
-    def exitReadStmt(self, ctx:MyLangParser.ReadStmtContext):
+    # Exit a parse tree produced by MyLangParser#declaration.
+    def exitDeclaration(self, ctx:MyLangParser.DeclarationContext):
         pass
 
 
-    # Enter a parse tree produced by MyLangParser#WriteStmt.
-    def enterWriteStmt(self, ctx:MyLangParser.WriteStmtContext):
+    # Enter a parse tree produced by MyLangParser#expressionStatement.
+    def enterExpressionStatement(self, ctx:MyLangParser.ExpressionStatementContext):
         pass
 
-    # Exit a parse tree produced by MyLangParser#WriteStmt.
-    def exitWriteStmt(self, ctx:MyLangParser.WriteStmtContext):
-        pass
-
-
-    # Enter a parse tree produced by MyLangParser#BlockStmt.
-    def enterBlockStmt(self, ctx:MyLangParser.BlockStmtContext):
-        pass
-
-    # Exit a parse tree produced by MyLangParser#BlockStmt.
-    def exitBlockStmt(self, ctx:MyLangParser.BlockStmtContext):
+    # Exit a parse tree produced by MyLangParser#expressionStatement.
+    def exitExpressionStatement(self, ctx:MyLangParser.ExpressionStatementContext):
         pass
 
 
-    # Enter a parse tree produced by MyLangParser#IfStmt.
-    def enterIfStmt(self, ctx:MyLangParser.IfStmtContext):
+    # Enter a parse tree produced by MyLangParser#readStatement.
+    def enterReadStatement(self, ctx:MyLangParser.ReadStatementContext):
         pass
 
-    # Exit a parse tree produced by MyLangParser#IfStmt.
-    def exitIfStmt(self, ctx:MyLangParser.IfStmtContext):
-        pass
-
-
-    # Enter a parse tree produced by MyLangParser#WhileStmt.
-    def enterWhileStmt(self, ctx:MyLangParser.WhileStmtContext):
-        pass
-
-    # Exit a parse tree produced by MyLangParser#WhileStmt.
-    def exitWhileStmt(self, ctx:MyLangParser.WhileStmtContext):
+    # Exit a parse tree produced by MyLangParser#readStatement.
+    def exitReadStatement(self, ctx:MyLangParser.ReadStatementContext):
         pass
 
 
-    # Enter a parse tree produced by MyLangParser#AndExpr.
-    def enterAndExpr(self, ctx:MyLangParser.AndExprContext):
+    # Enter a parse tree produced by MyLangParser#writeStatement.
+    def enterWriteStatement(self, ctx:MyLangParser.WriteStatementContext):
         pass
 
-    # Exit a parse tree produced by MyLangParser#AndExpr.
-    def exitAndExpr(self, ctx:MyLangParser.AndExprContext):
-        pass
-
-
-    # Enter a parse tree produced by MyLangParser#MulExpr.
-    def enterMulExpr(self, ctx:MyLangParser.MulExprContext):
-        pass
-
-    # Exit a parse tree produced by MyLangParser#MulExpr.
-    def exitMulExpr(self, ctx:MyLangParser.MulExprContext):
+    # Exit a parse tree produced by MyLangParser#writeStatement.
+    def exitWriteStatement(self, ctx:MyLangParser.WriteStatementContext):
         pass
 
 
-    # Enter a parse tree produced by MyLangParser#RelExpr.
-    def enterRelExpr(self, ctx:MyLangParser.RelExprContext):
+    # Enter a parse tree produced by MyLangParser#block.
+    def enterBlock(self, ctx:MyLangParser.BlockContext):
         pass
 
-    # Exit a parse tree produced by MyLangParser#RelExpr.
-    def exitRelExpr(self, ctx:MyLangParser.RelExprContext):
-        pass
-
-
-    # Enter a parse tree produced by MyLangParser#EqExpr.
-    def enterEqExpr(self, ctx:MyLangParser.EqExprContext):
-        pass
-
-    # Exit a parse tree produced by MyLangParser#EqExpr.
-    def exitEqExpr(self, ctx:MyLangParser.EqExprContext):
+    # Exit a parse tree produced by MyLangParser#block.
+    def exitBlock(self, ctx:MyLangParser.BlockContext):
         pass
 
 
-    # Enter a parse tree produced by MyLangParser#NegExpr.
-    def enterNegExpr(self, ctx:MyLangParser.NegExprContext):
+    # Enter a parse tree produced by MyLangParser#ifStatement.
+    def enterIfStatement(self, ctx:MyLangParser.IfStatementContext):
         pass
 
-    # Exit a parse tree produced by MyLangParser#NegExpr.
-    def exitNegExpr(self, ctx:MyLangParser.NegExprContext):
-        pass
-
-
-    # Enter a parse tree produced by MyLangParser#ParensExpr.
-    def enterParensExpr(self, ctx:MyLangParser.ParensExprContext):
-        pass
-
-    # Exit a parse tree produced by MyLangParser#ParensExpr.
-    def exitParensExpr(self, ctx:MyLangParser.ParensExprContext):
+    # Exit a parse tree produced by MyLangParser#ifStatement.
+    def exitIfStatement(self, ctx:MyLangParser.IfStatementContext):
         pass
 
 
-    # Enter a parse tree produced by MyLangParser#LiteralExpr.
-    def enterLiteralExpr(self, ctx:MyLangParser.LiteralExprContext):
+    # Enter a parse tree produced by MyLangParser#whileStatement.
+    def enterWhileStatement(self, ctx:MyLangParser.WhileStatementContext):
         pass
 
-    # Exit a parse tree produced by MyLangParser#LiteralExpr.
-    def exitLiteralExpr(self, ctx:MyLangParser.LiteralExprContext):
-        pass
-
-
-    # Enter a parse tree produced by MyLangParser#VarExpr.
-    def enterVarExpr(self, ctx:MyLangParser.VarExprContext):
-        pass
-
-    # Exit a parse tree produced by MyLangParser#VarExpr.
-    def exitVarExpr(self, ctx:MyLangParser.VarExprContext):
+    # Exit a parse tree produced by MyLangParser#whileStatement.
+    def exitWhileStatement(self, ctx:MyLangParser.WhileStatementContext):
         pass
 
 
-    # Enter a parse tree produced by MyLangParser#AddExpr.
-    def enterAddExpr(self, ctx:MyLangParser.AddExprContext):
+    # Enter a parse tree produced by MyLangParser#expression.
+    def enterExpression(self, ctx:MyLangParser.ExpressionContext):
         pass
 
-    # Exit a parse tree produced by MyLangParser#AddExpr.
-    def exitAddExpr(self, ctx:MyLangParser.AddExprContext):
-        pass
-
-
-    # Enter a parse tree produced by MyLangParser#NotExpr.
-    def enterNotExpr(self, ctx:MyLangParser.NotExprContext):
-        pass
-
-    # Exit a parse tree produced by MyLangParser#NotExpr.
-    def exitNotExpr(self, ctx:MyLangParser.NotExprContext):
+    # Exit a parse tree produced by MyLangParser#expression.
+    def exitExpression(self, ctx:MyLangParser.ExpressionContext):
         pass
 
 
-    # Enter a parse tree produced by MyLangParser#OrExpr.
-    def enterOrExpr(self, ctx:MyLangParser.OrExprContext):
+    # Enter a parse tree produced by MyLangParser#assignment.
+    def enterAssignment(self, ctx:MyLangParser.AssignmentContext):
         pass
 
-    # Exit a parse tree produced by MyLangParser#OrExpr.
-    def exitOrExpr(self, ctx:MyLangParser.OrExprContext):
-        pass
-
-
-    # Enter a parse tree produced by MyLangParser#AssignExpr.
-    def enterAssignExpr(self, ctx:MyLangParser.AssignExprContext):
-        pass
-
-    # Exit a parse tree produced by MyLangParser#AssignExpr.
-    def exitAssignExpr(self, ctx:MyLangParser.AssignExprContext):
+    # Exit a parse tree produced by MyLangParser#assignment.
+    def exitAssignment(self, ctx:MyLangParser.AssignmentContext):
         pass
 
 
-    # Enter a parse tree produced by MyLangParser#type.
-    def enterType(self, ctx:MyLangParser.TypeContext):
+    # Enter a parse tree produced by MyLangParser#logic_or.
+    def enterLogic_or(self, ctx:MyLangParser.Logic_orContext):
         pass
 
-    # Exit a parse tree produced by MyLangParser#type.
-    def exitType(self, ctx:MyLangParser.TypeContext):
+    # Exit a parse tree produced by MyLangParser#logic_or.
+    def exitLogic_or(self, ctx:MyLangParser.Logic_orContext):
         pass
 
 
-    # Enter a parse tree produced by MyLangParser#literal.
-    def enterLiteral(self, ctx:MyLangParser.LiteralContext):
+    # Enter a parse tree produced by MyLangParser#logic_and.
+    def enterLogic_and(self, ctx:MyLangParser.Logic_andContext):
         pass
 
-    # Exit a parse tree produced by MyLangParser#literal.
-    def exitLiteral(self, ctx:MyLangParser.LiteralContext):
+    # Exit a parse tree produced by MyLangParser#logic_and.
+    def exitLogic_and(self, ctx:MyLangParser.Logic_andContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLangParser#equality.
+    def enterEquality(self, ctx:MyLangParser.EqualityContext):
+        pass
+
+    # Exit a parse tree produced by MyLangParser#equality.
+    def exitEquality(self, ctx:MyLangParser.EqualityContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLangParser#comparison.
+    def enterComparison(self, ctx:MyLangParser.ComparisonContext):
+        pass
+
+    # Exit a parse tree produced by MyLangParser#comparison.
+    def exitComparison(self, ctx:MyLangParser.ComparisonContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLangParser#addition.
+    def enterAddition(self, ctx:MyLangParser.AdditionContext):
+        pass
+
+    # Exit a parse tree produced by MyLangParser#addition.
+    def exitAddition(self, ctx:MyLangParser.AdditionContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLangParser#multiplication.
+    def enterMultiplication(self, ctx:MyLangParser.MultiplicationContext):
+        pass
+
+    # Exit a parse tree produced by MyLangParser#multiplication.
+    def exitMultiplication(self, ctx:MyLangParser.MultiplicationContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLangParser#unary.
+    def enterUnary(self, ctx:MyLangParser.UnaryContext):
+        pass
+
+    # Exit a parse tree produced by MyLangParser#unary.
+    def exitUnary(self, ctx:MyLangParser.UnaryContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLangParser#primary.
+    def enterPrimary(self, ctx:MyLangParser.PrimaryContext):
+        pass
+
+    # Exit a parse tree produced by MyLangParser#primary.
+    def exitPrimary(self, ctx:MyLangParser.PrimaryContext):
         pass
 
 

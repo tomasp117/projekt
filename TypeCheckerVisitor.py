@@ -1,28 +1,28 @@
-from PLCParser import PLCParser
-from PLCVisitor import PLCVisitor
+from parser.MyLangParser import MyLangParser
+from parser.MyLangVisitor import MyLangVisitor
 
-class TypeCheckerVisitor(PLCVisitor):
+class TypeCheckerVisitor(MyLangVisitor):
     def __init__(self):
         self.symbols = {}  # variable name -> type
         self.errors = []
 
-    def visitProgram(self, ctx: PLCParser.ProgramContext):
+    def visitProgram(self, ctx: MyLangParser.ProgramContext):
         for stmt in ctx.statement():
             self.visit(stmt)
 
         if self.errors:
-            print("❌ Type errors:")
+            print("Type check errors:")
             for error in self.errors:
                 print(" -", error)
             exit(1)
         else:
-            print("✅ Type check passed.")
+            print("Type check passed.")
 
-    def visitBlock(self, ctx: PLCParser.BlockContext):
+    def visitBlock(self, ctx: MyLangParser.BlockContext):
         for stmt in ctx.statement():
             self.visit(stmt)
 
-    def visitDeclaration(self, ctx: PLCParser.DeclarationContext):
+    def visitDeclaration(self, ctx: MyLangParser.DeclarationContext):
         typ = ctx.TYPE().getText()
         for id_token in ctx.ID():
             name = id_token.getText()
@@ -31,7 +31,7 @@ class TypeCheckerVisitor(PLCVisitor):
             else:
                 self.symbols[name] = typ
 
-    def visitAssignment(self, ctx: PLCParser.AssignmentContext):
+    def visitAssignment(self, ctx: MyLangParser.AssignmentContext):
         if ctx.ASSIGN():
             left = ctx.logic_or()
             right = ctx.assignment()
@@ -52,7 +52,7 @@ class TypeCheckerVisitor(PLCVisitor):
         else:
             return self.visit(ctx.logic_or())
 
-    def visitPrimary(self, ctx: PLCParser.PrimaryContext):
+    def visitPrimary(self, ctx: MyLangParser.PrimaryContext):
         if ctx.INT(): return "int"
         if ctx.FLOAT(): return "float"
         if ctx.BOOL(): return "bool"
@@ -65,7 +65,7 @@ class TypeCheckerVisitor(PLCVisitor):
             return self.symbols[name]
         return self.visit(ctx.expression())
 
-    def visitAddition(self, ctx: PLCParser.AdditionContext):
+    def visitAddition(self, ctx: MyLangParser.AdditionContext):
         if len(ctx.children) == 1:
             return self.visit(ctx.getChild(0))
 
@@ -81,7 +81,7 @@ class TypeCheckerVisitor(PLCVisitor):
         self.errors.append(f"Operator '{op}' not supported for types '{left}' and '{right}'.")
         return "error"
 
-    def visitMultiplication(self, ctx: PLCParser.MultiplicationContext):
+    def visitMultiplication(self, ctx: MyLangParser.MultiplicationContext):
         if len(ctx.children) == 1:
             return self.visit(ctx.getChild(0))
 
@@ -99,7 +99,7 @@ class TypeCheckerVisitor(PLCVisitor):
         self.errors.append(f"Operator '{op}' not supported for types '{left}' and '{right}'.")
         return "error"
 
-    def visitComparison(self, ctx: PLCParser.ComparisonContext):
+    def visitComparison(self, ctx: MyLangParser.ComparisonContext):
         if len(ctx.children) == 1:
             return self.visit(ctx.getChild(0))
 
@@ -110,7 +110,7 @@ class TypeCheckerVisitor(PLCVisitor):
         self.errors.append(f"Invalid comparison between '{left}' and '{right}'.")
         return "error"
 
-    def visitEquality(self, ctx: PLCParser.EqualityContext):
+    def visitEquality(self, ctx: MyLangParser.EqualityContext):
         if len(ctx.children) == 1:
             return self.visit(ctx.getChild(0))
         left = self.visit(ctx.getChild(0))
@@ -120,7 +120,7 @@ class TypeCheckerVisitor(PLCVisitor):
         self.errors.append(f"Invalid equality check between '{left}' and '{right}'.")
         return "error"
 
-    def visitLogic_and(self, ctx: PLCParser.Logic_andContext):
+    def visitLogic_and(self, ctx: MyLangParser.Logic_andContext):
         if len(ctx.children) == 1:
             return self.visit(ctx.getChild(0))
         left = self.visit(ctx.getChild(0))
@@ -130,7 +130,7 @@ class TypeCheckerVisitor(PLCVisitor):
         self.errors.append("Logical AND requires boolean operands.")
         return "error"
 
-    def visitLogic_or(self, ctx: PLCParser.Logic_orContext):
+    def visitLogic_or(self, ctx: MyLangParser.Logic_orContext):
         if len(ctx.children) == 1:
             return self.visit(ctx.getChild(0))
         left = self.visit(ctx.getChild(0))
@@ -140,7 +140,7 @@ class TypeCheckerVisitor(PLCVisitor):
         self.errors.append("Logical OR requires boolean operands.")
         return "error"
 
-    def visitUnary(self, ctx: PLCParser.UnaryContext):
+    def visitUnary(self, ctx: MyLangParser.UnaryContext):
         if len(ctx.children) == 1:
             return self.visit(ctx.getChild(0))
         op = ctx.getChild(0).getText()
@@ -152,21 +152,21 @@ class TypeCheckerVisitor(PLCVisitor):
         self.errors.append(f"Unary operator '{op}' not valid for type '{operand}'.")
         return "error"
 
-    def visitExpressionStatement(self, ctx: PLCParser.ExpressionStatementContext):
+    def visitExpressionStatement(self, ctx: MyLangParser.ExpressionStatementContext):
         self.visit(ctx.expression())
 
-    def visitWriteStatement(self, ctx: PLCParser.WriteStatementContext):
+    def visitWriteStatement(self, ctx: MyLangParser.WriteStatementContext):
         for expr in ctx.expression():
             self.visit(expr)
 
-    def visitIfStatement(self, ctx: PLCParser.IfStatementContext):
+    def visitIfStatement(self, ctx: MyLangParser.IfStatementContext):
         condition_type = self.visit(ctx.expression())
         if condition_type != "bool":
             self.errors.append(f"'if' condition must be of type 'bool', got '{condition_type}'")
         for stmt in ctx.statement():
             self.visit(stmt)
 
-    def visitWhileStatement(self, ctx: PLCParser.WhileStatementContext):
+    def visitWhileStatement(self, ctx: MyLangParser.WhileStatementContext):
         condition_type = self.visit(ctx.expression())
         if condition_type != "bool":
             self.errors.append(f"'while' condition must be of type 'bool', got '{condition_type}'")

@@ -1,4 +1,4 @@
-// Generated from c:/Users/Tomáš/Documents/VSB/PJP/projekt/MyLang.g4 by ANTLR 4.13.1
+// Generated from d:/VSB/PJP/projekt/MyLang2.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -97,7 +97,7 @@ public class MyLangLexer extends Lexer {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "MyLang.g4"; }
+	public String getGrammarFileName() { return "MyLang2.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }

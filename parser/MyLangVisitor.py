@@ -14,113 +14,93 @@ class MyLangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyLangParser#EmptyStmt.
-    def visitEmptyStmt(self, ctx:MyLangParser.EmptyStmtContext):
+    # Visit a parse tree produced by MyLangParser#statement.
+    def visitStatement(self, ctx:MyLangParser.StatementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyLangParser#VarDecl.
-    def visitVarDecl(self, ctx:MyLangParser.VarDeclContext):
+    # Visit a parse tree produced by MyLangParser#declaration.
+    def visitDeclaration(self, ctx:MyLangParser.DeclarationContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyLangParser#ExprStmt.
-    def visitExprStmt(self, ctx:MyLangParser.ExprStmtContext):
+    # Visit a parse tree produced by MyLangParser#expressionStatement.
+    def visitExpressionStatement(self, ctx:MyLangParser.ExpressionStatementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyLangParser#ReadStmt.
-    def visitReadStmt(self, ctx:MyLangParser.ReadStmtContext):
+    # Visit a parse tree produced by MyLangParser#readStatement.
+    def visitReadStatement(self, ctx:MyLangParser.ReadStatementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyLangParser#WriteStmt.
-    def visitWriteStmt(self, ctx:MyLangParser.WriteStmtContext):
+    # Visit a parse tree produced by MyLangParser#writeStatement.
+    def visitWriteStatement(self, ctx:MyLangParser.WriteStatementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyLangParser#BlockStmt.
-    def visitBlockStmt(self, ctx:MyLangParser.BlockStmtContext):
+    # Visit a parse tree produced by MyLangParser#block.
+    def visitBlock(self, ctx:MyLangParser.BlockContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyLangParser#IfStmt.
-    def visitIfStmt(self, ctx:MyLangParser.IfStmtContext):
+    # Visit a parse tree produced by MyLangParser#ifStatement.
+    def visitIfStatement(self, ctx:MyLangParser.IfStatementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyLangParser#WhileStmt.
-    def visitWhileStmt(self, ctx:MyLangParser.WhileStmtContext):
+    # Visit a parse tree produced by MyLangParser#whileStatement.
+    def visitWhileStatement(self, ctx:MyLangParser.WhileStatementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyLangParser#AndExpr.
-    def visitAndExpr(self, ctx:MyLangParser.AndExprContext):
+    # Visit a parse tree produced by MyLangParser#expression.
+    def visitExpression(self, ctx:MyLangParser.ExpressionContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyLangParser#MulExpr.
-    def visitMulExpr(self, ctx:MyLangParser.MulExprContext):
+    # Visit a parse tree produced by MyLangParser#assignment.
+    def visitAssignment(self, ctx:MyLangParser.AssignmentContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyLangParser#RelExpr.
-    def visitRelExpr(self, ctx:MyLangParser.RelExprContext):
+    # Visit a parse tree produced by MyLangParser#logic_or.
+    def visitLogic_or(self, ctx:MyLangParser.Logic_orContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyLangParser#EqExpr.
-    def visitEqExpr(self, ctx:MyLangParser.EqExprContext):
+    # Visit a parse tree produced by MyLangParser#logic_and.
+    def visitLogic_and(self, ctx:MyLangParser.Logic_andContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyLangParser#NegExpr.
-    def visitNegExpr(self, ctx:MyLangParser.NegExprContext):
+    # Visit a parse tree produced by MyLangParser#equality.
+    def visitEquality(self, ctx:MyLangParser.EqualityContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyLangParser#ParensExpr.
-    def visitParensExpr(self, ctx:MyLangParser.ParensExprContext):
+    # Visit a parse tree produced by MyLangParser#comparison.
+    def visitComparison(self, ctx:MyLangParser.ComparisonContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyLangParser#LiteralExpr.
-    def visitLiteralExpr(self, ctx:MyLangParser.LiteralExprContext):
+    # Visit a parse tree produced by MyLangParser#addition.
+    def visitAddition(self, ctx:MyLangParser.AdditionContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyLangParser#VarExpr.
-    def visitVarExpr(self, ctx:MyLangParser.VarExprContext):
+    # Visit a parse tree produced by MyLangParser#multiplication.
+    def visitMultiplication(self, ctx:MyLangParser.MultiplicationContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyLangParser#AddExpr.
-    def visitAddExpr(self, ctx:MyLangParser.AddExprContext):
+    # Visit a parse tree produced by MyLangParser#unary.
+    def visitUnary(self, ctx:MyLangParser.UnaryContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyLangParser#NotExpr.
-    def visitNotExpr(self, ctx:MyLangParser.NotExprContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MyLangParser#OrExpr.
-    def visitOrExpr(self, ctx:MyLangParser.OrExprContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MyLangParser#AssignExpr.
-    def visitAssignExpr(self, ctx:MyLangParser.AssignExprContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MyLangParser#type.
-    def visitType(self, ctx:MyLangParser.TypeContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MyLangParser#literal.
-    def visitLiteral(self, ctx:MyLangParser.LiteralContext):
+    # Visit a parse tree produced by MyLangParser#primary.
+    def visitPrimary(self, ctx:MyLangParser.PrimaryContext):
         return self.visitChildren(ctx)
 
 
