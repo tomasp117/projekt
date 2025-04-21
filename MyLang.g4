@@ -5,8 +5,9 @@ INT: [0-9]+;
 FLOAT: [0-9]+ '.' [0-9]+;
 BOOL: 'true' | 'false';
 STRING: '"' .*? '"';
+FILE: STRING;
 
-TYPE: 'int' | 'float' | 'bool' | 'string';
+TYPE: 'int' | 'float' | 'bool' | 'string' | 'FILE';
 
 IF: 'if';
 ELSE: 'else';
@@ -42,6 +43,8 @@ RPAREN: ')';
 LBRACE: '{';
 RBRACE: '}';
 
+BITLEFT: '<<';
+
 ID: [a-zA-Z][a-zA-Z0-9]*;
 
 // ------------------- Parser Rules -------------------
@@ -55,6 +58,7 @@ statement:
 	| block
 	| ifStatement
 	| whileStatement
+	| writeFileStatement
 	| SEMI;
 
 declaration: TYPE ID (COMMA ID)* SEMI;
@@ -71,6 +75,9 @@ ifStatement:
 	IF LPAREN expression RPAREN statement (ELSE statement)?;
 
 whileStatement: WHILE LPAREN expression RPAREN statement;
+
+writeFileStatement:
+	ID BITLEFT expression (BITLEFT expression)* SEMI;
 
 expression: assignment;
 
@@ -95,5 +102,6 @@ primary:
 	| FLOAT
 	| BOOL
 	| STRING
+	| FILE
 	| ID
 	| LPAREN expression RPAREN;

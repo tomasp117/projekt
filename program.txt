@@ -1,4 +1,3 @@
-int x, y;
-x = !SAFas;
-y = x + 3;
-write y;
+FILE soubor;
+string s;
+soubor << "haha" << soubor;

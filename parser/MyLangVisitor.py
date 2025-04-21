@@ -54,6 +54,11 @@ class MyLangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MyLangParser#writeFileStatement.
+    def visitWriteFileStatement(self, ctx:MyLangParser.WriteFileStatementContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MyLangParser#expression.
     def visitExpression(self, ctx:MyLangParser.ExpressionContext):
         return self.visitChildren(ctx)

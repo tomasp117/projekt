@@ -89,6 +89,15 @@ class MyLangListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MyLangParser#writeFileStatement.
+    def enterWriteFileStatement(self, ctx:MyLangParser.WriteFileStatementContext):
+        pass
+
+    # Exit a parse tree produced by MyLangParser#writeFileStatement.
+    def exitWriteFileStatement(self, ctx:MyLangParser.WriteFileStatementContext):
+        pass
+
+
     # Enter a parse tree produced by MyLangParser#expression.
     def enterExpression(self, ctx:MyLangParser.ExpressionContext):
         pass

@@ -171,3 +171,18 @@ class TypeCheckerVisitor(MyLangVisitor):
         if condition_type != "bool":
             self.errors.append(f"'while' condition must be of type 'bool', got '{condition_type}'")
         self.visit(ctx.statement())
+
+    def visitWriteFileStatement(self, ctx: MyLangParser.WriteFileStatementContext):
+        id = ctx.ID().getText()
+        if id not in self.symbols:
+            self.errors.append(f"Variable '{id}' is not declared.")
+            return "error"
+        if id in self.symbols and self.symbols[id] != "FILE":
+            self.errors.append(f"Variable '{id}' must be of type 'FILE'.")
+            return "error"
+        for expr in ctx.expression():
+            expr_type = self.visit(expr)
+            if expr_type not in ("string", "int", "float"):
+                self.errors.append(f"Cannot write expression of type '{expr_type}' to FILE. Only int, float or string are allowed.")
+                return "error"
+            self.visit(expr)
