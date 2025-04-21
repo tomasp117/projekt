@@ -1,8 +1,10 @@
 import sys
 from antlr4 import *
+from Interpreter import StackInterpreter
 from parser.MyLangLexer import MyLangLexer
 from parser.MyLangParser import MyLangParser
 from TypeCheckerVisitor import TypeCheckerVisitor
+from CodeGeneratorVisitor import CodeGeneratorVisitor
 
 def main():
     if len(sys.argv) < 2:
@@ -35,8 +37,23 @@ def main():
         print("Parse Tree:")
         print(tree.toStringTree(recog=parser))
 
+    # 1. Type checking
     type_checker = TypeCheckerVisitor()
     type_checker.visit(tree)
+
+    # 2. Generate code
+    code_generator = CodeGeneratorVisitor()
+    code_generator.visit(tree)
+
+    output_path = input_file.replace(".txt", ".stack")
+    code_generator.write_to_file(output_path)
+    print(f"Code generated to: {output_path}")
+
+    # 3. Run stack-based interpreter
+    print("Running program:")
+    interpreter = StackInterpreter()
+    interpreter.run(output_path)
+
 
 if __name__ == "__main__":
     main()
