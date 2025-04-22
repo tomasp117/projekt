@@ -126,3 +126,19 @@ class CodeGeneratorVisitor(MyLangVisitor):
             self.emit("concat")
         self.emit("print 1")
 
+    def visitReadStatement(self, ctx):
+        for var in ctx.ID():
+            var_name = var.getText()
+            var_type = self.symbols.get(var_name)
+            if var_type == "int":
+                self.emit("read I")
+            elif var_type == "float":
+                self.emit("read F")
+            elif var_type == "bool":
+                self.emit("read B")
+            elif var_type == "string":
+                self.emit("read S")
+            else:
+                raise Exception(f"Unknown variable type: {var_type}")
+            self.emit(f"save {var_name}")
+

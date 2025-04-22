@@ -101,14 +101,24 @@ class StackInterpreter:
         elif op == "read":
             t = parts[1]
             raw = input().strip()
-            if t == "I":
-                self.stack.append(int(raw))
-            elif t == "F":
-                self.stack.append(float(raw))
-            elif t == "B":
-                self.stack.append(raw.lower() == "true")
-            elif t == "S":
-                self.stack.append(raw)
+            try:
+                if t == "I":
+                    value = int(raw)
+                    self.stack.append(value)
+                elif t == "F":
+                    value = float(raw)
+                    self.stack.append(value)
+                elif t == "B":
+                    if raw.lower() not in ["true", "false"]:
+                        raise ValueError("Expected 'true' or 'false'")
+                    self.stack.append(raw.lower() == "true")
+                elif t == "S":
+                    self.stack.append(raw)
+                else:
+                    raise ValueError(f"Unknown type: {t}")
+            except ValueError as e:
+                print(f"Invalid input for type '{t}': '{raw}' → {e}")
+                return False
         return False
 
     def _pop(self):
