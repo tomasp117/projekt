@@ -31,6 +31,7 @@ class TypeCheckerVisitor(MyLangVisitor):
             else:
                 self.symbols[name] = typ
 
+
     def visitAssignment(self, ctx: MyLangParser.AssignmentContext):
         if ctx.ASSIGN():
             left = ctx.logic_or()
@@ -44,13 +45,24 @@ class TypeCheckerVisitor(MyLangVisitor):
             left_type = self.symbols[var_name]
             right_type = self.visit(right)
 
+            # Povolení: int → float
             if left_type == "float" and right_type == "int":
                 return "float"
+
+            # Povolení: string → FILE
+            if left_type == "FILE" and right_type == "string":
+                return "FILE"
+
             if left_type != right_type:
-                self.errors.append(f"Cannot assign type '{right_type}' to variable '{var_name}' of type '{left_type}'.")
+                self.errors.append(
+                    f"Cannot assign type '{right_type}' to variable '{var_name}' of type '{left_type}'."
+                )
+                return "error"
+
             return left_type
         else:
-            return self.visit(ctx.logic_or())
+            return self.visit(ctx.logic_or())   
+
 
     def visitPrimary(self, ctx: MyLangParser.PrimaryContext):
         if ctx.INT(): return "int"

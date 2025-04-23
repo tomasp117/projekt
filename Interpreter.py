@@ -119,6 +119,16 @@ class StackInterpreter:
             except ValueError as e:
                 print(f"Invalid input for type '{t}': '{raw}' → {e}")
                 return False
+        elif op == "fwrite":
+            file = self._pop()
+            value = self._pop()
+            try:
+                with open(file, "a", encoding="utf-8") as f:
+                    f.write(str(value))
+            except Exception as e:
+                print(f"Error writing to file '{file}': {e}")
+
+        
         return False
 
     def _pop(self):

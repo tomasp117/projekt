@@ -120,11 +120,11 @@ class CodeGeneratorVisitor(MyLangVisitor):
 
     def visitWriteFileStatement(self, ctx: MyLangParser.WriteFileStatementContext):
         file_var = ctx.ID().getText()
-        self.emit(f"load {file_var}")
+
         for expr in ctx.expression():
-            self.visit(expr)
-            self.emit("concat")
-        self.emit("print 1")
+            expr_type = self.visit(expr)
+            self.emit(f"load {file_var}") 
+            self.emit("fwrite")
 
     def visitReadStatement(self, ctx):
         for var in ctx.ID():
@@ -142,3 +142,102 @@ class CodeGeneratorVisitor(MyLangVisitor):
                 raise Exception(f"Unknown variable type: {var_type}")
             self.emit(f"save {var_name}")
 
+    def visitMultiplication(self, ctx: MyLangParser.MultiplicationContext):
+        if len(ctx.children) == 1:
+            return self.visit(ctx.getChild(0))
+
+        left_type = self.visit(ctx.getChild(0))
+        op = ctx.getChild(1).getText()
+        right_type = self.visit(ctx.getChild(2))
+
+        float_result = left_type == "float" or right_type == "float"
+        if float_result:
+            if left_type == "int":
+                self.instructions.insert(len(self.instructions) - 2, "itof")
+            if right_type == "int":
+                self.emit("itof")
+
+        if op == "%":
+            self.emit("mod")
+            return "int"
+
+        instr = "mul" if op == "*" else "div"
+        instr += " F" if float_result else " I"
+        self.emit(instr)
+
+        return "float" if float_result else "int"
+
+    def visitComparison(self, ctx: MyLangParser.ComparisonContext):
+        if len(ctx.children) == 1:
+            return self.visit(ctx.getChild(0))
+
+        left_type = self.visit(ctx.getChild(0))
+        op = ctx.getChild(1).getText()
+        right_type = self.visit(ctx.getChild(2))
+
+        if left_type == "int" and right_type == "float":
+            self.instructions.insert(len(self.instructions) - 1, "itof")
+            left_type = "float"
+        elif left_type == "float" and right_type == "int":
+            self.emit("itof")
+            right_type = "float"
+
+        instr = "lt" if op == "<" else "gt"
+        instr += " F" if left_type == "float" else " I"
+        self.emit(instr)
+
+        return "bool"
+
+    def visitEquality(self, ctx: MyLangParser.EqualityContext):
+        if len(ctx.children) == 1:
+            return self.visit(ctx.getChild(0))
+
+        left_type = self.visit(ctx.getChild(0))
+        op = ctx.getChild(1).getText()
+        right_type = self.visit(ctx.getChild(2))
+
+        if left_type == "float" and right_type == "int":
+            self.emit("itof")
+            right_type = "float"
+
+        eq_type = "I" if left_type == "int" else "F" if left_type == "float" else "S"
+        self.emit(f"eq {eq_type}")
+
+        if op == "!=":
+            self.emit("not")
+
+        return "bool"
+
+    def visitLogic_and(self, ctx: MyLangParser.Logic_andContext):
+        if len(ctx.children) == 1:
+            return self.visit(ctx.getChild(0))
+
+        self.visit(ctx.getChild(0))
+        self.visit(ctx.getChild(2))
+        self.emit("and")
+        return "bool"
+
+    def visitLogic_or(self, ctx: MyLangParser.Logic_orContext):
+        if len(ctx.children) == 1:
+            return self.visit(ctx.getChild(0))
+
+        self.visit(ctx.getChild(0))
+        self.visit(ctx.getChild(2))
+        self.emit("or")
+        return "bool"
+
+    def visitUnary(self, ctx: MyLangParser.UnaryContext):
+        if len(ctx.children) == 1:
+            return self.visit(ctx.getChild(0))
+
+        op = ctx.getChild(0).getText()
+        operand_type = self.visit(ctx.getChild(1))
+
+        if op == "!":
+            self.emit("not")
+            return "bool"
+        elif op == "-":
+            self.emit(f"uminus {'F' if operand_type == 'float' else 'I'}")
+            return operand_type
+
+        return "error"
